@@ -1,14 +1,31 @@
 function preload() {
+    this.load.image('backgroundmap','assets/Map001.png');
+    this.load.image('tree','assets/tree01.png');
+
+  //=========================
+    //pré carregamento
     this.load.image('player', 'assets/frente.png');
+    
 }
 
 function create() {
+     /*fundo*/
+    this.add.image(250,200,'backgroundmap').setScale(2.0,2.0);
+    var tree = this.physics.add.staticGroup();
+
+    tree.create(100,100,'tree');
+
+    //var personagem = this.physics.add.sprite(100,330,'player');
+
+  //=============================================
+    /*controles*/
     this.w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
     this.a = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
     this.s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
     this.d = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)
-
-    this.player = this.physics.add.image(config.width / 2, config.height / 2, 'player').setScale(0.25, 0.25);
+   
+    /*personagem*/
+    this.player = this.physics.add.image(config.width / 2, config.height / 2, 'player').setScale(1.0, 1.0);
     this.player.setCollideWorldBounds(true);
 }
 
@@ -22,9 +39,10 @@ function update() {
 
 const config = {
     type: Phaser.AUTO,
-    width: 500,
+    width: 600,
     height: 400,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#fff',
+    autoCenter: Phaser.Scale.CENTER_BOTH,
     physics: {
         default: 'arcade',
         arcade: {
