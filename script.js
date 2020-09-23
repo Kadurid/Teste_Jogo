@@ -1,5 +1,5 @@
 function preload() {
-    this.load.image('backgroundmap','assets/Map001.png');
+    this.load.image('backgroundmap','assets/MapaGrama.png');
     this.load.image('tree','assets/tree01.png');
 
   //=========================
@@ -11,11 +11,6 @@ function preload() {
 function create() {
      /*fundo*/
     this.add.image(250,200,'backgroundmap').setScale(2.0,2.0);
-    var tree = this.physics.add.staticGroup();
-
-    tree.create(100,100,'tree');
-
-    //var personagem = this.physics.add.sprite(100,330,'player');
 
   //=============================================
     /*controles*/
@@ -25,8 +20,15 @@ function create() {
     this.d = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)
    
     /*personagem*/
-    this.player = this.physics.add.image(config.width / 2, config.height / 2, 'player').setScale(1.0, 1.0);
+    const player = this.player = this.physics.add.image(config.width / 2, config.height / 2, 'player').setScale(1.0, 1.0);
     this.player.setCollideWorldBounds(true);
+    /*objetos*/
+    var tree = this.physics.add.staticGroup();
+    tree.create(100,100,'tree');
+    /*colisao*/
+    this.physics.add.collider(tree, player)
+
+    
 }
 
 function update() {
