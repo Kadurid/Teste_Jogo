@@ -4,7 +4,7 @@
  * criar inimigos e vida
  */
 
-
+//aaaaaa
 function collectingMaterial(game,progress,obj,goal,msgm){
     obj.on('pointerdown', function() {
         if(progress<goal/2){
