@@ -1,5 +1,5 @@
 /**
- * modularizar:colocar uma mesma funcao de coletar mareial para todas missoes
+ * modularizar:colocar uma mesma funcao de coletar mareial para todas missoes: DANY okay
  * criar Mapa
  * criar inimigos e vida
  * */
