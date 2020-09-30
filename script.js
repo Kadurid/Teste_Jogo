@@ -2,57 +2,33 @@
  * modularizar:colocar uma mesma funcao de coletar mareial para todas missoes
  * criar Mapa
  * criar inimigos e vida
- */
+ * */
 
 
-function collectingMaterial(game,progress,obj,goal,msgm){
-    obj.on('pointerdown', function() {
-        if(progress<goal/2){
-             progress +=5;
-            //TODO exibir barra de progress noo lugar de console.log
-            console.log(msgm +" "+progress );
-            if(progress == goal/2){
-                //TODO colocaf isso na outra funcao
-                buildCampfire(game,progress,goal) ;
-            }
+const config = {
+    type: Phaser.AUTO,
+    width: 600,
+    height: 400,
+    backgroundColor: '#fff',
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: {
+                y: 0
+            },
+            debug: false
         }
-    });
-}
-function buildCampfire(game,progress,goal){
-    //TODO mudar para tercera galho,colcar vários
-    //TDO fazer galhoo aparecer suavemete 
-    var campfire = game.physics.add.sprite(config.width / 2, config.height / 2, 'elements').setImmovable().setInteractive();
+    },
+    scene: {
+        preload: preload,
+        create: create,
+        update: update
+    }
+};
 
-    game.physics.add.collider(campfire, game.player);
-    
-    //TODO corrigir Movimentos
-    game.player.body.velocity.x += 3000;
-    alert("clique nos galhos. colocar explicacao");
-    
-    //TODO usar a funcao de cima
-    campfire.on('pointerdown', function() {
-        if(progress<goal){
-             progress +=5;
-            //TODO exibir barra de progress noo lugar de console.log
-            console.log("fogueira" +" "+progress );
-            if(progress == goal){
-                //TODO colocaf isso na outra funcao
-                alert("sucess");
-                //TODO criar um sprite que tenha tudo da fogueira (colocar varias fases)
-                campfire.setTexture('elements',15);
-            }
-        }
-    });
-}
-
-function fireMission(game){
-    //TODO exibir mensagem na tela falando que o user achou uma árvore perfeita e instruir o usuário a clicar na tela até que seja coletado lenha
-    var tree = game.treeFireMission;
-    var progress= 0;
-    var goal =100;
-    alert("Clique a árvore repetidas vezes para obter galhos e folhas secas para fazer fogo");
-    collectingMaterial(game,progress,tree,goal,"Progresso em obter lenha:");
-}
+const game = new Phaser.Game(config);
+//const fireMission = new FireMission(game);
 
 function preload() {
     //fundos
@@ -80,34 +56,34 @@ function create() {
     //TODO dany aterar sprite
     this.anims.create({
       key: 'stopped',
-      frames: [{key:"player",frame:5}],
+      frames: [{key:"player",frame:1}],
       framerate:20,
     });
     /*go*/
     this.anims.create({
       key:'goLeft',
-      frames: this.anims.generateFrameNumbers('player',{start:3,end:4}),
+      frames: this.anims.generateFrameNumbers('player',{start:3,end:5}),
       framerate:10,
       repeat: -1,
     });
 
     this.anims.create({
       key:'goRight',
-      frames: this.anims.generateFrameNumbers('player',{start:1,end:2}),
+      frames: this.anims.generateFrameNumbers('player',{start:6,end:8}),
       framerate:10,
       repeat: -1,
     });
 
     this.anims.create({
       key:'goUp',
-      frames: this.anims.generateFrameNumbers('player',{start:0,end:0}),
+      frames: this.anims.generateFrameNumbers('player',{start:9,end:11}),
       framerate:10,
       repeat: -1,
     });
 
     this.anims.create({
       key:'goDown',
-      frames: this.anims.generateFrameNumbers('player',{start:5,end:5}),
+      frames: this.anims.generateFrameNumbers('player',{start:0,end:2}),
       framerate:10,
       repeat: 1,
     });
@@ -154,30 +130,7 @@ function update() {
     }
 
     if (player.body.touching.left && treeFireMission.body.touching){
-        fireMission(this);
+        FireMission(this);
     }
 }
 
-const config = {
-    type: Phaser.AUTO,
-    width: 600,
-    height: 400,
-    backgroundColor: '#fff',
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: {
-                y: 0
-            },
-            debug: false
-        }
-    },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
-};
-
-const game = new Phaser.Game(config);
