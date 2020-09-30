@@ -65,10 +65,15 @@ function create() {
     treeFireMission.setInteractive();
     this.treeFireMission = treeFireMission;
 
+    var campfire = this.physics.add.sprite(config.width / 2, config.height / 2, 'elements').setImmovable().setInteractive();
+    this.campfire = campfire;
+    this.campfire.setActive(false).setVisible(false);
+
     /*colisões*/
     //TODO ver um jeito de adicionar várias colisões de ma só vez
     this.physics.add.collider(tree, player);
     this.physics.add.collider(treeFireMission, player);
     this.player = player;
+    this.fireMission = new FireMission(this);
     
 }
