@@ -112,7 +112,17 @@ function create() {
     });
     /*others objetos*/
     //TODO para repetir o objteo,veja: https://phaser.io/tutorials/making-your-first-phaser-3-game-portuguese/part8
+
     var tree = this.physics.add.staticGroup();
+    /* testar se esta repetindo as arvores
+    for(let i =0; i<5;i++){
+      const x = Phaser.Math.Between(100,100)
+      const y = 150*i
+       tree.create(x,y,'tree');
+       tree.Scale = 0.5
+       const body = tree.body
+        body.updateFromGameObject()
+    }*/
     tree.create(100,100,'tree');
 
     //essa árvore tem propriedades fisicas,pois pertence a missão do fogo

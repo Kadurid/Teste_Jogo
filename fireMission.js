@@ -11,4 +11,4 @@ function fireMission(player,tree){
     });
 }
 
-module.exports = {fireMission};
+//module.exports = {fireMission};
