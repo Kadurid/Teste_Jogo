@@ -1,1 +1,81 @@
-{}
+{
+  "scenario":[
+    {
+      "id": 1,
+      "name": "initiation",
+      "description": "Primeira tela do jogo. Apresenta nome do jogo e botão de start (que leva a tela do mapa)",
+      "category_id":1,
+    },
+    {
+      "id":2,
+      "name": "mapa",
+      "description":"Mostra ao jogador as missões disponíveis no jogo, possibilitando a esolha de uma missao",
+      "category_id":1,
+    },
+    {
+      "id":3,
+      "name": "Mission Fire",
+      "description": "Missão a ser realizada pelo usuário. Nessa missão o usuário tem que coletar material e construir uma pequena fogueira para a sua sobrevivência na selva.",
+      "category_id":2,
+    }
+  ],
+  
+  "components":[
+    {
+      "id":1,
+      "name":"Lifes",
+      "description":"Contador  de vidas",
+      "aparece":"Todas  as missões",
+      "category_id":3,
+    },
+    {
+      "id": 2,
+      "name": "Energy",
+      "description":"Nível de energia do usuário",
+      "aparece":"Todas as fases",
+      "category_id":3,
+    },
+    {
+      "id":3,
+      "name":"Inimigos",
+      "description":"Descontam a vida do usuário ao esbarrar no mesmo",
+      "aparece":"todas as fases",
+      "category_id":4,
+    },
+    {
+      "id": 4,
+      "name": "Fruits",
+      "description":"Aumentam a do usuário",
+      "aparece":"Todas as fases",
+      "category_id":5,
+    }
+  ],
+  
+  "categorys":[
+    {
+      "id":1,
+      "name": "Telas de opções",
+      "description": "Direciona o usuário para determinado fluxo do jogo",
+    },
+    {
+      "id":2,
+      "name": "Missões",
+      "description": "Missões a serem realizaddas pelo jogador",
+    },
+    {
+      "id":3,
+      "name": "Atributos  do jogador",
+      "description": "Atributos do jogador, exemplos: vidas, energia",
+    },
+    {
+      "id":4,
+      "name": "Obstáculos",
+      "description": "Obstáculos enfrentados pelo jogador.Iterferem nos atributos do jogador",
+    },
+    {
+      "id":5,
+      "name": "Recarrega",
+      "description": "Recarrega a energia ou vidas do jogador",
+    }
+  ]
+}
