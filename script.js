@@ -1,9 +1,40 @@
 /**
  * modularizar:colocar uma mesma funcao de coletar mareial para todas missoes
  * criar Mapa
- * criar inimigos e vida
+ * criar inimigos e vida:https://www.paulotrentin.com.br/programacao/criando-jogos-com-html5-e-phaser/parte-3-adicionando-inimigo-ao-jogo/
  */
-
+/**
+ * Função que cria o inimigo
+ */
+function criaInimigo(){
+    //  Cria inimigo dentro do grupo inimigos
+    var inimigo = inimigos.create(500, 400, 'aligato');
+ 
+    //  Define gravidade do inimigo
+    inimigo.body.gravity.y = 1500;
+ 
+    // Faz inimigos não fugirem do mundo
+    inimigo.body.collideWorldBounds = true;
+}
+/**
+ *  Função que faz inimigo se aproximar do jogador
+ */
+function aproximaInimigo(){
+    // Pega o primeiro elemento do grupo inimigos
+    var inimigo = inimigos.children[0];
+ 
+    // Faz com que ele fique parado
+    inimigo.body.velocity.x = 0;
+ 
+    // Se o inimigo está mais para esquerda do jogador
+    if (inimigo.position.x < jogador.body.position.x){
+        // faz ele ir para direita
+        inimigo.body.velocity.x += 100;
+    }else{
+        // Senão, faz ele ir para esquerda
+        inimigo.body.velocity.x -= 100;
+    }
+}
 
 function collectingMaterial(game,progress,obj,goal,msgm){
     obj.on('pointerdown', function() {
@@ -55,6 +86,10 @@ function fireMission(game){
 }
 
 function preload() {
+
+    // inimigos
+    this.load.image('aligato','assets/animals/Aligators.png');
+   
     //fundos
     this.load.image('backgroundmap','assets/Mapas/MapaGrama.png');
     
@@ -71,7 +106,7 @@ function preload() {
 function create() {
     /*add images */
      /*fundo*/
-    this.add.image(250,200,'backgroundmap').setScale(2.0,2.0);
+    this.add.image(350,300,'backgroundmap').setScale(2.0,2.0);
     var player = this.physics.add.sprite(config.width / 2, config.height / 2, 'player');
 
     player.setCollideWorldBounds(true); /*colisões*/
@@ -111,30 +146,31 @@ function create() {
       repeat: 1,
     });
     /*others objetos*/
-    //TODO para repetir o objteo,veja: https://phaser.io/tutorials/making-your-first-phaser-3-game-portuguese/part8
-
-    var tree = this.physics.add.staticGroup();
-    /* testar se esta repetindo as arvores
-    for(let i =0; i<5;i++){
-      const x = Phaser.Math.Between(100,100)
-      const y = 150*i
-       tree.create(x,y,'tree');
-       tree.Scale = 0.5
-       const body = tree.body
-        body.updateFromGameObject()
-    }*/
-    tree.create(100,100,'tree');
-
+    //Repete as arvores
+    tree = this.physics.add.staticGroup({
+    key: 'tree',
+    repeat: 9,
+    setXY: { x: 0, y: 12, stepX: 70 }
+    });
+    this.physics.add.collider(tree, player);
+  
     //essa árvore tem propriedades fisicas,pois pertence a missão do fogo
-    var treeFireMission = this.physics.add.sprite(100, 200, 'tree').setImmovable();
+    var treeFireMission = this.physics.add.sprite(50, 100, 'tree').setImmovable();
     treeFireMission.setInteractive();
     this.treeFireMission = treeFireMission;
 
     /*colisões*/
     //TODO ver um jeito de adicionar várias colisões de ma só vez
-    this.physics.add.collider(tree, player);
     this.physics.add.collider(treeFireMission, player);
     this.player = player;
+
+    var inimigos = this.physics.add.group()
+    inimigos = game.add.group();
+    // Definimos aqui que qualquer inimigo terá um corpo,
+    // ou seja, nosso personagem pode bater nele
+   /* inimigos.enableBody = true;
+     // Chama função que cria inimigo
+    criaInimigo();*/
     
 }
 
