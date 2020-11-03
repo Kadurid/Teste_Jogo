@@ -7,6 +7,7 @@ function fireMission(player,tree){
              progressFireMission +=10;
             //TODO exibir barra de progress noo lugar de console.log
             console.log("Progresso em obter lenha:"+progressFireMission);
+
         }
     });
 }

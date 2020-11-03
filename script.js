@@ -8,17 +8,16 @@
  */
 function criaInimigo(){
     //  Cria inimigo dentro do grupo inimigos
-    var inimigo = inimigos.create(500, 400, 'aligato');
+    var inimigo = inimigos.create(150, 50, 'aligato');
  
     //  Define gravidade do inimigo
-    inimigo.body.gravity.y = 1500;
+    inimigo.body.gravity.y = 100;
  
     // Faz inimigos não fugirem do mundo
     inimigo.body.collideWorldBounds = true;
 }
-/**
- *  Função que faz inimigo se aproximar do jogador
- */
+
+//Função que faz inimigo se aproximar do jogador
 function aproximaInimigo(){
     // Pega o primeiro elemento do grupo inimigos
     var inimigo = inimigos.children[0];
@@ -58,7 +57,7 @@ function buildCampfire(game,progress,goal){
     
     //TODO corrigir Movimentos
     game.player.body.velocity.x += 3000;
-    alert("clique nos galhos. colocar explicacao");
+    alert("Clique nos galhos, para realizar fricÇão e obter fogo");
     
     //TODO usar a funcao de cima
     campfire.on('pointerdown', function() {
@@ -88,7 +87,7 @@ function fireMission(game){
 function preload() {
 
     // inimigos
-    this.load.image('aligato','assets/animals/Aligators.png');
+    this.load.image('aligato','assets/animals/Aligator.png');
    
     //fundos
     this.load.image('backgroundmap','assets/Mapas/MapaGrama.png');
@@ -146,11 +145,20 @@ function create() {
       repeat: 1,
     });
     /*others objetos*/
+
     //Repete as arvores
     tree = this.physics.add.staticGroup({
     key: 'tree',
+    repeat: 10,
+    setXY: { x:12, y: 0, stepX: 70 }
+    });
+    this.physics.add.collider(tree, player);
+
+     //Repete as arvores
+    tree = this.physics.add.staticGroup({
+    key: 'tree',
     repeat: 9,
-    setXY: { x: 0, y: 12, stepX: 70 }
+    setXY: { x:10, y: 30, stepX: 80 }
     });
     this.physics.add.collider(tree, player);
   
@@ -164,13 +172,16 @@ function create() {
     this.physics.add.collider(treeFireMission, player);
     this.player = player;
 
-    var inimigos = this.physics.add.group()
-    inimigos = game.add.group();
+   // inimigos = game.add.group();
+   inimigos = this.physics.add.group();
+    this.physics.add.collider(player,inimigos);
     // Definimos aqui que qualquer inimigo terá um corpo,
     // ou seja, nosso personagem pode bater nele
-   /* inimigos.enableBody = true;
+    //inimigos.enableBody = true;
      // Chama função que cria inimigo
-    criaInimigo();*/
+    criaInimigo();
+
+    
     
 }
 
