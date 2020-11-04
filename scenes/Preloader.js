@@ -9,6 +9,7 @@ class Preloader extends Phaser.Scene {
         this.load.tilemapTiledJSON('forest','assets/tileset/MapForest.json');
 
         this.load.atlas("character", "assets/character/character.png", "assets/character/character.json");
+        this.load.atlas("bear", "assets/enemies/bear/bear.png","assets/enemies/bear/bear.json");
 
 
     }

@@ -14,7 +14,8 @@ class MainScene extends Phaser.Scene {
         
         groundLayer.setCollisionByProperty({ collides: true});
         wallsLayer.setCollisionByProperty({collides: true});
-
+        
+        //debugGraphics--------------------------------------
         const debugGraphics = this.add.graphics().setAlpha(0.7);
         wallsLayer.renderDebug(debugGraphics,{
             tileColor: null,
@@ -26,8 +27,9 @@ class MainScene extends Phaser.Scene {
           collidingTileColor: new Phaser.Display.Color(205,65,58),
           faceColor: new Phaser.Display.Color(40,39,37,255)
         });
-      
-        var character = this.physics.add.sprite(128,128,'character');
+        //-----------------------------------------------------------
+
+        var character = this.physics.add.sprite(128,128,'character','walk-down-3.png');
         character.body.setSize(character.width*0.5, character.height*0.8);
         
         //character.setCollideWorldBounds(true);
@@ -73,7 +75,54 @@ class MainScene extends Phaser.Scene {
        this.cameras.main.startFollow(character, true);
        this.cameras.main.setBounds(0,0,800,800);
       //------------------
-       this.character = character
+
+      const bear = this.physics.add.sprite(256,256,'bear','brown-down-1.png');
+      bear.body.setSize(bear.width*0.7, bear.height*0.95);
+
+      this.anims.create({
+          key: "brown-idle-down",
+          frames: [{ key: 'bear', frame: 'brown-down-1.png'}]
+      })
+      this.anims.create({
+          key: "brown-idle-up",
+          frames: [{ key: 'bear', frame: 'brown-up-1.png'}]
+      })
+      this.anims.create({
+          key: "brown-idle-left",
+          frames: [{ key: 'bear', frame: 'brown-left-1.png'}]
+      })
+      this.anims.create({
+          key: "brown-idle-right",
+          frames: [{ key: 'bear', frame: 'brown-right-1.png'}]
+      })
+      this.anims.create({
+         key: "brown-run-down",
+          frames: this.anims.generateFrameNames('bear', {start: 0, end: 2, prefix: "brown-down-", suffix: ".png"}),
+          repeat: -1,
+          frameRate: 15
+       });
+        this.anims.create({
+         key: "brown-run-up",
+          frames: this.anims.generateFrameNames('bear', {start: 0, end: 2, prefix: "brown-up-", suffix: ".png"}),
+          repeat: -1,
+          frameRate: 15
+       });
+        this.anims.create({
+         key: "brown-run-left",
+          frames: this.anims.generateFrameNames('bear', {start: 0, end: 2, prefix: "brown-left-", suffix: ".png"}),
+          repeat: -1,
+          frameRate: 15
+       });
+        this.anims.create({
+         key: "brown-run-right",
+          frames: this.anims.generateFrameNames('bear', {start: 0, end: 2, prefix: "brown-right-", suffix: ".png"}),
+          repeat: -1,
+          frameRate: 15
+       });
+      
+
+      character.anims.play("character-idle-down");
+       this.character = character;
     }
     
     update(){
@@ -97,8 +146,11 @@ class MainScene extends Phaser.Scene {
       character.setVelocity(0,100);
       character.anims.play('character-run-down', true);
     }else{
+      const parts= character.anims.currentAnim.key.split("-");
+      parts[1] = 'idle';
+      character.play(parts.join('-'));
       character.setVelocity(0,0);
-      character.anims.play('character-idle-down');
+      
      // game.player.anims.play('stopped');
     }
     }
