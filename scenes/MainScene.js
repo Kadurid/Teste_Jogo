@@ -64,13 +64,14 @@ class MainScene extends Phaser.Scene {
           repeat: -1,
           frameRate: 15
        });
-       //character.anims.play("character-idle-side");
-       //Colliders
+      //character.anims.play("character-idle-side");
+      //Colliders
        this.physics.add.collider(character,wallsLayer);
        this.physics.add.collider(character,groundLayer);
-       
+      //---------------------
+      //camera
        this.cameras.main.startFollow(character, true);
-       //this.cameras.main.setBounds()
+       this.cameras.main.setBounds(0,0,800,800);
       //------------------
        this.character = character
     }
