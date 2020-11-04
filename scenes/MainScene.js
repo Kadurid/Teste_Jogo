@@ -67,17 +67,11 @@ class MainScene extends Phaser.Scene {
           frameRate: 15
        });
       //character.anims.play("character-idle-side");
-      //Colliders
-       this.physics.add.collider(character,wallsLayer);
-       this.physics.add.collider(character,groundLayer);
-      //---------------------
+     
       //camera
        this.cameras.main.startFollow(character, true);
        this.cameras.main.setBounds(0,0,800,800);
       //------------------
-
-      const bear = this.physics.add.sprite(256,256,'bear','brown-down-1.png');
-      bear.body.setSize(bear.width*0.7, bear.height*0.95);
 
       this.anims.create({
           key: "brown-idle-down",
@@ -99,29 +93,42 @@ class MainScene extends Phaser.Scene {
          key: "brown-run-down",
           frames: this.anims.generateFrameNames('bear', {start: 0, end: 2, prefix: "brown-down-", suffix: ".png"}),
           repeat: -1,
-          frameRate: 15
+          frameRate: 10
        });
         this.anims.create({
          key: "brown-run-up",
           frames: this.anims.generateFrameNames('bear', {start: 0, end: 2, prefix: "brown-up-", suffix: ".png"}),
           repeat: -1,
-          frameRate: 15
+          frameRate: 10
        });
         this.anims.create({
          key: "brown-run-left",
           frames: this.anims.generateFrameNames('bear', {start: 0, end: 2, prefix: "brown-left-", suffix: ".png"}),
           repeat: -1,
-          frameRate: 15
+          frameRate: 10
        });
         this.anims.create({
          key: "brown-run-right",
           frames: this.anims.generateFrameNames('bear', {start: 0, end: 2, prefix: "brown-right-", suffix: ".png"}),
           repeat: -1,
-          frameRate: 15
+          frameRate: 10
        });
+
+       const bears = this.physics.add.group({
+        classType: BrownBear
+      });
+      bears.get(256,256, 'bear');
       
+       //Colliders
+       this.physics.add.collider(character,wallsLayer);
+       this.physics.add.collider(character,groundLayer);
+       this.physics.add.collider(bears,wallsLayer);
+       this.physics.add.collider(bears,groundLayer);
+       this.physics.add.collider(bears,character);
+      //---------------------
 
       character.anims.play("character-idle-down");
+      //bear.anims.play("brown-run-down");
        this.character = character;
     }
     
