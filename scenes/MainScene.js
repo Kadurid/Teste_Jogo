@@ -31,6 +31,33 @@ class MainScene extends Phaser.Scene {
           faceColor: new Phaser.Display.Color(40,39,37,255)
         });
       
+        const character = this.add.sprite(128,128,'character','walk-down/walk-down-3');
+
+        this.anims.create({
+          key: "character-idle-down",
+          frames: [{ key: 'character', frame: 'walk-down-3.png'}]
+        });
+
+
+        this.anims.create({
+          key: "character-run-down",
+          frames: this.anims.generateFrameNames('character', {start: 1, end: 8, prefix: "run-down-", suffix: ".png"}),
+          repeat: -1,
+          frameRate: 15
+        });
+        this.anims.create({
+          key: "character-run-up",
+          frames: this.anims.generateFrameNames('character', {start: 1, end: 8, prefix: "run-up-", suffix: ".png"}),
+          repeat: -1,
+          frameRate: 15
+        });
+       this.anims.create({
+         key: "character-run-side",
+          frames: this.anims.generateFrameNames('character', {start: 1, end: 8, prefix: "run-side-", suffix: ".png"}),
+          repeat: -1,
+          frameRate: 15
+       });
+       character.anims.play("character-idle-down");
     }
     
     update(){
