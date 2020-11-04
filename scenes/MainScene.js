@@ -27,7 +27,10 @@ class MainScene extends Phaser.Scene {
           faceColor: new Phaser.Display.Color(40,39,37,255)
         });
       
-        const character = this.add.sprite(128,128,'character','walk-down/walk-down-3');
+        var character = this.physics.add.sprite(128,128,'character');
+        character.body.setSize(character.width*0.5, character.height*0.8);
+        
+        //character.setCollideWorldBounds(true);
 
         this.anims.create({
           key: "character-idle-down",
@@ -62,9 +65,40 @@ class MainScene extends Phaser.Scene {
           frameRate: 15
        });
        //character.anims.play("character-idle-side");
+       //Colliders
+       this.physics.add.collider(character,wallsLayer);
+       this.physics.add.collider(character,groundLayer);
+       
+       this.cameras.main.startFollow(character, true);
+       //this.cameras.main.setBounds()
+      //------------------
+       this.character = character
     }
     
     update(){
-
+      let cursors = this.input.keyboard.createCursorKeys();
+      var character = this.character;
+    /*go*/
+    if(cursors.left.isDown){
+      character.setVelocity(-100,0);
+      character.anims.play('character-run-side', true);
+      character.scaleX = -1;
+      character.body.offset.x = 24;
+    }else if(cursors.right.isDown){
+      character.setVelocity(100,0);
+      character.anims.play('character-run-side', true);
+      character.scaleX = 1;
+      character.body.offset.x = 8;
+    }else if(cursors.up.isDown){
+      character.setVelocity(0,-100);
+      character.anims.play('character-run-up', true);
+    }else if(cursors.down.isDown){
+      character.setVelocity(0,100);
+      character.anims.play('character-run-down', true);
+    }else{
+      character.setVelocity(0,0);
+      character.anims.play('character-idle-down');
+     // game.player.anims.play('stopped');
+    }
     }
 }
