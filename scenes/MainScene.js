@@ -1,12 +1,8 @@
 class MainScene extends Phaser.Scene {
+
     constructor(){
         super("fase1")
     }
-
-    preload(){
-
-    }
-
     create(){
         const map = this.make.tilemap({key:'forest'});
         const tileset1 = map.addTilesetImage('Forest', 'tiles');
@@ -37,6 +33,14 @@ class MainScene extends Phaser.Scene {
           key: "character-idle-down",
           frames: [{ key: 'character', frame: 'walk-down-3.png'}]
         });
+        this.anims.create({
+          key: "character-idle-up",
+          frames: [{key: 'character', frame: 'walk-up-3.png'}]
+        });
+        this.anims.create({
+          key: "character-idle-side",
+          frames: [{key: 'character', frame: 'walk-side-3.png'}]
+        });
 
 
         this.anims.create({
@@ -57,7 +61,7 @@ class MainScene extends Phaser.Scene {
           repeat: -1,
           frameRate: 15
        });
-       character.anims.play("character-idle-down");
+       //character.anims.play("character-idle-side");
     }
     
     update(){
