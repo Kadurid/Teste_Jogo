@@ -6,9 +6,10 @@ const config = {
     type: Phaser.Auto,
     physics: {
         default: 'arcade',
-        arcafe: {
+        arcade: {
             gravity: { y:0 }
-        }
+        },
+        debug:true
     },
     scene: [Preloader, MainScene],
     scale: {

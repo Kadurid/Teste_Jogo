@@ -10,13 +10,14 @@ class MainScene extends Phaser.Scene {
     create(){
         const map = this.make.tilemap({key:'forest'});
         const tileset1 = map.addTilesetImage('Forest', 'tiles');
-        const tileset2 = map.addTilesetImage('TreeWall','trees');
+        const tileset2 = map.addTilesetImage('treeWall','trees');
 
         const groundLayer = map.createStaticLayer('Ground', tileset1);
         const wallsLayer = map.createStaticLayer('Walls',tileset2);
         //map.createStaticLayer('Superior1')
         
         groundLayer.setCollisionByProperty({ collides: true});
+        wallsLayer.setCollisionByProperty({collides: true});
 
         const debugGraphics = this.add.graphics().setAlpha(0.7);
         wallsLayer.renderDebug(debugGraphics,{
