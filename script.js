@@ -11,7 +11,6 @@ function criaInimigo(){
     var inimigo = inimigos.create(150, 50, 'aligato');
  
     //  Define gravidade do inimigo
-    inimigo.body.gravity.y = 100;
  
     // Faz inimigos não fugirem do mundo
     inimigo.body.collideWorldBounds = true;
